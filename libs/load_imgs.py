@@ -13,7 +13,5 @@ def load_images_from_folder(folder):
                     training_images.append(img_gray)
                 else:
                     test_images.append(img_gray)
-                    # print(file)
             cnt += 1
-        # print("=====================================")
     return training_images,test_images

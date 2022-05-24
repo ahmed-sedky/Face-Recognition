@@ -15,6 +15,6 @@ eigen_vectors = eigen.get_eigen(cov_mat,substracted_training_images)
 projected_training_imgs = project.get_projection(eigen_vectors,substracted_training_images)
 projected_test_imgs = project.get_projection(eigen_vectors,substracted_test_images)
 RFC = classifier.classify(projected_training_imgs,projected_test_imgs)
-classifier.show_predicted_image(RFC , mean_image ,eigen_vectors)
+classifier.show_predicted_image(RFC ,projected_test_imgs )
 
 
