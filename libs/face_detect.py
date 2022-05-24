@@ -16,6 +16,8 @@ def detect_face(image):
     for (x, y, w, h) in  faces:
         cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
         crop_img = image[ y:y+h, x:x+w]
+    cv2.imshow("face detection" ,image)
+    cv2.waitKey()
     if (len(faces) != 0 ):
         return crop_img ,len(faces)
     else:
