@@ -3,6 +3,7 @@ import os
 def load_images_from_folder(folder):
     training_images = []
     test_images = []
+    saving_indecies = []
     for root, _ , files in os.walk(folder):
         cnt = 0 
         for file in files:
@@ -13,5 +14,10 @@ def load_images_from_folder(folder):
                     training_images.append(img_gray)
                 else:
                     test_images.append(img_gray)
+                    person = os.path.basename(file)
+                    prefix = person.rpartition('.')[0]
+                    prefix = prefix.rsplit("_", 1)[-1]
+                    saving_indecies.append(prefix)
             cnt += 1
-    return training_images,test_images
+    print(saving_indecies)
+    return saving_indecies,training_images,test_images

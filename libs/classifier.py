@@ -24,30 +24,18 @@ def classify(projected_training_imgs,projected_test_imgs):
     # print(accuracy_score(y_true, y_pred))
     return RFC
 
-def show_predicted_image(RFC,projected_images,mean_image,eigen_vectors):
-    test_image_path = "D:/4th year 2nd term/cv/tasks/task5/data/4/40_4.jpg"
+def show_predicted_image(RFC ,mean_image,eigen_vectors, saving_indices):
+    test_image_path = "D:/4th year 2nd term/cv/tasks/task5/data/7/70_7.jpg"
     image = cv2.imread(test_image_path)
-    person = os.path.basename(test_image_path)
-    prefix = person.rpartition('.')[0]
-    prefix = prefix.rsplit("_", 1)[-1]
-    print("original" ,prefix)
-    prefix = int(prefix)
-    prefix = int(prefix *2)
-    if (prefix % 2 == 1):
-        prefix = prefix-1
-    # print(prefix)
-    image = np.asarray(image)
-    img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    sub_img = img_gray - mean_image
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    sub_img = image_gray - mean_image
     sub_img = sub_img.flatten()
     sub_img = np.transpose(sub_img)
     projected_image = np.dot(eigen_vectors, sub_img)
     projected_image = np.transpose(projected_image)
-    print("shape: ",projected_image.shape)
     label = RFC.predict(projected_image.reshape(1, -1))
-    # label = RFC.predict(projected_images[prefix].reshape(1, -1))
-    print("estimated: ",label[0])
-    folder_path = "D:/4th year 2nd term/cv/tasks/task5/data/" + str(label[0])
+    print("estimated: ",saving_indices[label[0]*2])
+    folder_path = "D:/4th year 2nd term/cv/tasks/task5/data/" + str(saving_indices[label[0]*2])
     for root, _, files in os.walk(folder_path):
         for count, file in enumerate(files) :
             if(count == 0 ):
